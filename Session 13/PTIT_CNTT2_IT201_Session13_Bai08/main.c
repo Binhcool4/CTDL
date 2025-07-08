@@ -31,7 +31,6 @@ int pop(Stack *s) {
         printf("Stack is empty\n");
         return 0;
     }
-    return 0;
 }
 
 int postFix(char *e) {
@@ -45,19 +44,14 @@ int postFix(char *e) {
         if (isdigit(c)) {
             push(&s, c - '0');
         } else {
-            int a = pop(&s);
-            int b = pop(&s);
+            int right = pop(&s);
+            int left = pop(&s);
             int result = 0;
             switch (c) {
-                case '+': result = a + b; break;
-                case '-': result = a - b; break;
-                case '*': result = a * b; break;
-                case '/':
-                    if (a==0) {
-                        printf("Divide by 0\n");
-                        return 0;
-                    }
-                    result = a / b; break;
+                case '+': result = left + right; break;
+                case '-': result = left - right; break;
+                case '*': result = left * right; break;
+                case '/': result = left / right; break;
                 default:
                     printf("Invalid operator\n");
                     return 0;
@@ -74,6 +68,6 @@ int main() {
     fgets(ex, MAX, stdin);
     ex[strcspn(ex, "\n")] = 0;
     int result = postFix(ex);
-    printf(("%d\n", result));
+    printf("%d\n", result);
     return 0;
 }
